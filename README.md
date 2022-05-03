@@ -9,7 +9,7 @@ Our movement-based control system allows users to control a character in a video
 - [Source Code Guide](#source-code-guide)
 - [Set up Instructions](#set-up-instructions)
 - [Video Demo](#video-demo)
-- [Future Work](#future-work)
+- [Conclusions](#conclusions)
 
 -----
 # Project Basics
@@ -52,7 +52,7 @@ Seconds | 301 |
 ## Part 1: Raspberry Pi (Server)
 1. Download the Raspberry Pi sourcecode 
 1. Connect Raspberry Pi to a computer screen
-2. Run the file called (LINK)
+2. Run the file called handcount.py
 
 ## Part 2: Mbed to Pygame connection
 1. Ensure that you have downloaded the windows driver onto the mbed to allow opening a COM port (follow instructions at https://os.mbed.com/handbook/Windows-serial-configuration)
