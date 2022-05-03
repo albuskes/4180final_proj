@@ -28,6 +28,19 @@ Our movement-based control system allows users to control a character in a video
 - Raspberry Pi with
 -   .....
 ## Pinouts and Diagrams
+A block diagram has been provided below. 
+![plot](./block_diagram_words.png)
+We have also provided the appropriate wiring for componenets interactingn with mbed. This will need to be placed on a breadboard with the mbed. 
+
+<b>uLCD</b>
+uLCD | mbed | 
+--- | --- | 
+Seconds | 301 | 
+
+<b>Bluetooth module</b>
+Bluetooth | mbed | 
+--- | --- | 
+Seconds | 301 | 
 
 
 -----
@@ -63,12 +76,10 @@ Our movement-based control system allows users to control a character in a video
 ----
 # Conclusions
 ## Results
-In the end, we had a functional motion-based controller. It stood to be considerably more difficult than expected in several areas, most notably: speed (latency), data transfer, and threading. 
+In the end, we had a functional motion-based controller. It stood to be considerably more difficult than expected in several areas, most notably: speed (latency), data transfer, networking capabilities, and threading. It took a non-trivial amount of time to adjust the game to allow it to run appropriately while still recieving data from both the mbed via serial and the Raspberry Pi via the TCP server. There were also some glitches we never worked out -- there were issues with some library compatibility issues on the mbed side, and threads had to be removed. Unfortunately, this did affect the speed and the amount of capabilities we could do with the mbed (hence the more simplistic stats printed). We fixed a large part of the latency issues by increasing the baud rate of the serial connection from the mbed to computer. However, this introduced some new issues where firing would occur more than once for one phone movement. We remedied this by adding a small wait time to when we sampled the serial input to check for a signal (other ideas we had included variations of polling, but the other method worked better). Overall though, we worked through these issues to provide a near-finished product. While some deviation from the original proposal occurred, this was partly to orient the design more towards an "embedded system," and partly to add some more complexity. The main features of motion control were kept and improved, and the features that required the mbed directly were retained, all except the speaker (which we moved to be just on the computer, in part due to the threading issues on mbed side). 
 ## Future Work
 - Expand movement-based functionality
   - Different hand motions = different "buttons"
 - Option for doing button/throwing motion and movement with one hand only
 - Fixing glitchiness of movement sensing
-----
-# Resources
-- Inspiration taken from an open-source GitHub project
+
