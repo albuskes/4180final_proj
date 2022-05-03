@@ -30,24 +30,31 @@ Our movement-based control system allows users to control a character in a video
 # Source Code Guide
 -----
 # Set up Instructions
+## Part 0: Network
+1. Ensure all devices are connected to the same network (preferably a hotspot or other variety of more "private" network)
 ## Part 1: Raspberry Pi (Server)
+1. Download the Raspberry Pi sourcecode 
 1. Connect Raspberry Pi to a computer screen
-2. Connect webcame to Raspberry Pi
-3. Run _______
-## Part 2: Computer to Run Pygame
-1. Make sure to have Python 3.x and run the game
-## Part 3: Mbed to Pygame connection
-This step is focused on connecting the mbed to the python game. This is used to detect shooting via a "throwing" motion. 
+2. Run the file called (LINK)
+
+## Part 2: Mbed to Pygame connection
 1. Ensure that you have downloaded the windows driver onto the mbed to allow opening a COM port (follow instructions at https://os.mbed.com/handbook/Windows-serial-configuration)
 2. Plug in mbed to computer
 3. Download the mbed code file (INSERT LINK HERE) to the mbed and run it
-4. Check which port is being used (for windows, check the device manager and look under "ports")
-6. Go to the code up update the port being used INSERT CODE SECTION
-## Part 4: Phone
-Here, we connect the phone to the mbed via bluetoth so we can read from the phone's accelerometer. 
+4. Check which port is being used (for windows, check the device manager and look under "ports") and make note of it
+
+
+## Part 3: Connect Phone
 1. Download the Adafruit Bluefruit Connector app 
 2. Connect to the Bluefruit device on your mbed
 3. Go to the Controller tab and turn on Accelerometer
+
+## Part 4: Run Pygame
+1. Make sure to have Python 3.x downloaded
+2. Download source code files for the game
+3. Connect the game via TCP to the "Raspberry Pi" connection running the server on your network
+4. Go to the code for the game and update the port (found in part 2) being used in the ____ fileINSERT CODE SECTION
+
 ----
 # Video Demo 
 ----
