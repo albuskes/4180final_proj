@@ -1,10 +1,4 @@
-"""
-from mbedrpc import *
-
-serdev = '/dev/tty.usbmodem1102'
-s = serial.Serial(serdev)
-mbed = SerialRPC(serdev, 9600)
-"""
+import threading
 import serial
 
 def toShoot(rawInput):
@@ -15,22 +9,23 @@ def toShoot(rawInput):
     """
     strInput = str(rawInput)
     shootChar = strInput[2]
-    if shootChar == "F":
-        shoot = False
-    else:
+    if shootChar == "1":
         shoot = True
+    else:
+        shoot = False
     return shoot;
 
 
 def main():
     shoot = False
     ser = serial.Serial()
-    ser.baudrate = 9600
+    ser.baudrate = 115200
     ser.port = '/dev/tty.usbmodem1102'
     ser.open()
 
     while(1):
-        rawInput = ser.readline()
+        rawInput = ser.read(1)
+        print(rawInput)
         shoot = toShoot(rawInput)
         print(shoot)
         
