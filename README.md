@@ -1,6 +1,6 @@
 # ECE 4180 Final Project : Movement-based Controller
 ### Arthur Buskes and Saikanam Siam
-Our movement-based control system allows users to control a character in a videogame without using the conventional joystick and buttons. This opens the doors to play videogames for disabled folks without the physical body parts to operate a standard video game controller or the fine motor skills required.
+Our movement-based control system allows users to control a character in a videogame without using the conventional joystick and buttons. This opens the doors to play videogames for disabled folks without the physical body parts to operate a standard video game controller or the fine motor skills required. The idea started as just the accelerometer aspect, which would be used to activate a "throwing" motion for a Pokemon game. 
 
 -----
 # Table of Contents
