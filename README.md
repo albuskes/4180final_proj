@@ -4,7 +4,7 @@ Our movement-based control system allows users to control a character in a video
 
 -----
 # Table of Contents
-- [Intro](#ece-4180-final-project--movement-based-controller)
+- [Intro](#ece-4180-final-project--gesture-based-controller)
 - [Project Basics](#project-basics)
 - [Source Code Guide](#source-code-guide)
 - [Set up Instructions](#set-up-instructions)
@@ -25,9 +25,12 @@ Our movement-based control system allows users to control a character in a video
 - Python version 3.9 with libraries
   - Pyserial 
   - Pygame
-  - threading
+  - Threading
 - Raspberry Pi with
--   ...
+	- OpenCV 
+	- Mediapipe 
+	- Threading
+
 ## Pinouts and Diagrams
 A block diagram has been provided below. 
 ![plot](./block_diagram_words.png)
