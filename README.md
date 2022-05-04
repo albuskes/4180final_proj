@@ -57,14 +57,14 @@ RXI | p10 |
 -----
 # Source Code Guide
 ## code for the mbed
-Listed in the codeMbed folder.
-- The file ____
+- Listed in the codeMbed folder.
+- The file mbedAccelerometer.cpp
 ## Code for PC side of things
-Listed in the codePC folder.
-Run the file called "main.py"
+- Listed in the codePC folder.
+- Run the file called "main.py"
 ## Code for Raspberry Pi
-Listed in codePi folder.
-Run the file called "handcount.py"
+- Listed in codePi folder.
+- Run the file called "handcount.py"
 -----
 # Set up Instructions
 ## Part 0: Network
@@ -92,15 +92,11 @@ Run the file called "handcount.py"
 4. Go to the code for the game and update the port (found in part 2) being used (either to the COM# for windows, or '/dev/tty.__' for mac
 ```
 def serialInit():
-	global shoot
-	global ser
-	shoot = False
-	ser = serial.Serial()
-	ser.timeout = 0.01
-	ser.baudrate = 115200
+	....
 	#ser.port = '/dev/tty.usbmodem1102'
 	ser.port = 'COM8'
-	ser.open()
+	....
+	
 ```
 
 ----
