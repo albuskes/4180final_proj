@@ -35,12 +35,22 @@ We have also provided the appropriate wiring for componenets interacting with mb
 <b>uLCD</b>
 uLCD | mbed | 
 --- | --- | 
-Seconds | 301 | 
+5V | VU | 
+Gnd | Gnd |
+TX | RX (p27) |
+RX | TX (p28) |
+Reset | p30 |
 
 <b>Bluetooth module</b>
 Bluetooth | mbed | 
 --- | --- | 
-Seconds | 301 | 
+GND | GND | 
+Vin | Vu |
+RTS | nc |
+CTS | GND |
+TXO | p9 |
+RXI | p10 |
+
 
 
 -----
@@ -172,7 +182,7 @@ int main()
 2. Run the file called handcount.py
 
 ## Part 2: Mbed to Pygame connection
-1. Ensure that you have downloaded the windows driver onto the mbed to allow opening a COM port (follow instructions at https://os.mbed.com/handbook/Windows-serial-configuration)
+1. Ensure that you have downloaded the windows driver onto the mbed to allow opening a COM port (follow instructions at (https://os.mbed.com/handbook/Windows-serial-configuration)
 2. Plug in mbed to computer
 3. Download the mbed code file above (with relevant library) to the mbed and run it
 4. Check which port is being used (for windows, check the device manager and look under "ports") and make note of it
@@ -186,7 +196,10 @@ int main()
 1. Make sure to have Python 3.x downloaded
 2. Download source code files for the game
 3. Connect the game via TCP to the "Raspberry Pi" connection running the server on your network
-4. Go to the code for the game and update the port (found in part 2) being used in the ____ fileINSERT CODE SECTION
+4. Go to the code for the game and update the port (found in part 2) being used in the ___________
+```
+INSERT CODE SECTION
+```
 
 ----
 # Video Demo 
