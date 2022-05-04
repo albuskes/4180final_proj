@@ -59,7 +59,7 @@ RXI | p10 |
 
 -----
 # Source Code Guide
-## code for the mbed
+## Code for the mbed
 - Listed in the codeMbed folder.
 - The file mbedAccelerometer.cpp
 ## Code for PC side of things
