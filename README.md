@@ -92,7 +92,7 @@ RXI | p10 |
 1. Make sure to have Python 3.x downloaded
 2. Download source code files for the game
 3. Connect the game via TCP to the "Raspberry Pi" connection running the server on your network
-4. Go to the code for the game and update the port (found in part 2) being used (either to the COM# for windows, or '/dev/tty.__' for mac
+4. Go to the code for the game and update the port (found in part 2) being used (either to the COM# for windows, or '/dev/tty.__' for mac)
 ```
 def serialInit():
 	....
