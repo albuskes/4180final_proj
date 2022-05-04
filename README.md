@@ -85,9 +85,18 @@ Listed in codePi folder.
 1. Make sure to have Python 3.x downloaded
 2. Download source code files for the game
 3. Connect the game via TCP to the "Raspberry Pi" connection running the server on your network
-4. Go to the code for the game and update the port (found in part 2) being used in the ___________
+4. Go to the code for the game and update the port (found in part 2) being used (either to the COM# for windows, or '/dev/tty.__' for mac
 ```
-INSERT CODE SECTION
+def serialInit():
+	global shoot
+	global ser
+	shoot = False
+	ser = serial.Serial()
+	ser.timeout = 0.01
+	ser.baudrate = 115200
+	#ser.port = '/dev/tty.usbmodem1102'
+	ser.port = 'COM8'
+	ser.open()
 ```
 
 ----
