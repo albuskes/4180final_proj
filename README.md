@@ -9,7 +9,7 @@ Our movement-based control system allows users to control a character in a video
 - [Source Code Guide](#source-code-guide)
 - [Set up Instructions](#set-up-instructions)
 - [Video Demo](#video-demo)
-- [Future Work](#future-work)
+- [Conclusions](#conclusions)
 
 -----
 # Project Basics
@@ -28,10 +28,140 @@ Our movement-based control system allows users to control a character in a video
 - Raspberry Pi with
 -   .....
 ## Pinouts and Diagrams
+A block diagram has been provided below. 
+![plot](./block_diagram_words.png)
+We have also provided the appropriate wiring for componenets interacting with mbed. This will need to be placed on a breadboard with the mbed. 
+
+<b>uLCD</b>
+uLCD | mbed | 
+--- | --- | 
+Seconds | 301 | 
+
+<b>Bluetooth module</b>
+Bluetooth | mbed | 
+--- | --- | 
+Seconds | 301 | 
 
 
 -----
 # Source Code Guide
+## mbed Code
+The code to download to the mbed is given below. It uses the additional library listed below:
+- http://mbed.org/users/4180_1/code/4DGL-uLCD-SE/
+```
+#include "mbed.h"
+#include "uLCD_4DGL.h"
+#include <cmath>  
+
+Serial bluemod(p9,p10);
+Serial pc(USBTX, USBRX);
+uLCD_4DGL uLCD(p28,p27,p30); 
+DigitalOut led(LED1);
+
+int consecShoot = 0;
+float x_curr=0;
+float y_curr=0;
+float z_curr=0;
+float x_max=0;
+float y_max=0;
+float z_max=0;
+
+union f_or_char {
+    float f;
+    char  c[4];
+};
+
+int main()
+{    
+    pc.baud(115200);
+    char bchecksum=0;
+    char temp=0;
+    union f_or_char x,y,z;
+    float xprev, yprev, zprev;
+    int numShoot = 0;
+    bool firstRun = true;
+    bool canShoot = true;
+    uLCD.color(BLUE);
+    uLCD.locate(0,0);
+    uLCD.printf("Stats:\n");
+    
+    while(1) {
+        bchecksum=0;
+        // Get input from accelerometer on phone and check it
+        if (bluemod.getc()=='!') {
+            if (bluemod.getc()=='A') { //Accelerometer data packet
+                
+                for (int i=0; i<4; i++) {
+                    temp = bluemod.getc();
+                    x.c[i] = temp;
+                    bchecksum = bchecksum + temp;
+                }
+                for (int i=0; i<4; i++) {
+                    temp = bluemod.getc();
+                    y.c[i] = temp;
+                    bchecksum = bchecksum + temp;
+                }
+                for (int i=0; i<4; i++) {
+                    temp = bluemod.getc();
+                    z.c[i] = temp;
+                    bchecksum = bchecksum + temp;
+                }
+                if (bluemod.getc()==char(~('!' + 'A' + bchecksum))) { //checksum OK?
+                    x_curr = x.f;
+                    y_curr =y.f;
+                    z_curr =z.f;
+                    
+                    // Sending signal for shooting
+                    if (canShoot && (abs(z.f - zprev) > 0.3) || (abs(y.f - yprev) > 0.3) || (abs(x.f - xprev) > 0.3) && !firstRun) {
+                        pc.printf("1");
+                        canShoot = false;
+                        numShoot++;
+                    } else {
+                        pc.printf("0");
+                        canShoot = true;
+                    }
+                    
+                    // Testing the max and printing if it changes
+                    if(x.f > x_max){
+                        uLCD.locate(0,0);
+                        uLCD.color(BLACK);
+                        uLCD.printf("\nMax X: \n %4f\n", x_max);
+                        uLCD.color(RED);
+                        uLCD.printf("\nMax X: \n %4f\n", x.f);
+                        x_max = x.f;
+                    }
+                    if(y.f > y_max){
+                        uLCD.locate(0,0);
+                        uLCD.locate(0,5);
+                        uLCD.color(BLACK);
+                        uLCD.printf("\nMax Y: \n %5f\n", y_max);
+                        uLCD.color(RED);
+                        uLCD.printf("\nMax Y: \n %5f\n", y.f);
+                        y_max = y.f;
+                    }
+                    if(z.f > z_max){
+                        uLCD.locate(0,0);
+                        uLCD.locate(0,10);
+                        uLCD.color(BLACK);
+                        uLCD.printf("\nMax Z: \n %5f\n", z_max);
+                        uLCD.color(RED);
+                        uLCD.printf("\nMax Z: \n %5f\n", z.f);
+                        
+                        z_max = z.f;
+                    }
+                    
+                    // Setting old values from accelerometer
+                    xprev = x.f;
+                    yprev = y.f;
+                    zprev = z.f;
+                    firstRun = false;  
+                }
+            }
+        }
+    }
+}
+
+```
 -----
 # Set up Instructions
 ## Part 0: Network
@@ -39,12 +169,12 @@ Our movement-based control system allows users to control a character in a video
 ## Part 1: Raspberry Pi (Server)
 1. Download the Raspberry Pi sourcecode 
 1. Connect Raspberry Pi to a computer screen
-2. Run the file called (LINK)
+2. Run the file called handcount.py
 
 ## Part 2: Mbed to Pygame connection
 1. Ensure that you have downloaded the windows driver onto the mbed to allow opening a COM port (follow instructions at https://os.mbed.com/handbook/Windows-serial-configuration)
 2. Plug in mbed to computer
-3. Download the mbed code file (INSERT LINK HERE) to the mbed and run it
+3. Download the mbed code file above (with relevant library) to the mbed and run it
 4. Check which port is being used (for windows, check the device manager and look under "ports") and make note of it
 
 ## Part 3: Connect Phone
@@ -63,12 +193,15 @@ Our movement-based control system allows users to control a character in a video
 ----
 # Conclusions
 ## Results
-In the end, we had a functional motion-based controller. It stood to be considerably more difficult than expected in several areas, most notably: speed (latency), data transfer, and threading. 
+In the end, we had a functional motion-based controller. It stood to be considerably more difficult than expected in several areas, most notably: speed (latency), data transfer, networking capabilities, and threading. It took a non-trivial amount of time to adjust the game to allow it to run appropriately while still recieving data from both the mbed via serial and the Raspberry Pi via the TCP server. There were also some glitches we never worked out -- there were issues with some library compatibility issues on the mbed side, and threads had to be removed. Unfortunately, this did affect the speed and the amount of capabilities we could do with the mbed (hence the more simplistic stats printed). We fixed a large part of the latency issues by increasing the baud rate of the serial connection from the mbed to computer. However, this introduced some new issues where firing would occur more than once for one phone movement. We remedied this by adding a small wait time to when we sampled the serial input to check for a signal (other ideas we had included variations of polling, but the other method worked better). Overall though, we worked through these issues to provide a near-finished product. While some deviation from the original proposal occurred, this was partly to orient the design more towards an "embedded system," and partly to add some more complexity. The main features of motion control were kept and improved, and the features that required the mbed directly were retained, all except the speaker (which we moved to be just on the computer, in part due to the threading issues on mbed side) and IMU. We ended up using the phone accelerometer instead of the IMU, since the IMU had substantial issues with accuracy. This was a very informative and successsful project overall, especially considering we only had two people to work on it. Some big takeways were that building interconnected systems, especially when they recieve data from different sources, presents many difficulties, and that flexibility and adaptability is very important when working with potentially unforeseen issues.
 ## Future Work
 - Expand movement-based functionality
   - Different hand motions = different "buttons"
 - Option for doing button/throwing motion and movement with one hand only
-- Fixing glitchiness of movement sensing
-----
-# Resources
-- Inspiration taken from an open-source GitHub project
+- Fixing occasional glitchiness of movement sensing
+- Create some kind of "glove" or other attachment with which to secure phone
+- Experiment with designs that use higher-quality IMU than what was available in the lab kits
+- Expand into multi-player features
+- Improve so that client/servers can be on different networks and still communicate
+- Optimize data transfer -- is there a better way to transmit the data than via serial? Or, if still using serial, is there a better way to encode data?
+
