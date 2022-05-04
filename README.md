@@ -104,7 +104,12 @@ def serialInit():
 
 ----
 # Video Demo 
-[![Watch the video demo](https://img.youtube.com/vi/nTQUwghvy5Q/default.jpg)](https://youtu.be/3-q65xdXd7M)
+##Youtube Link
+https://youtu.be/3-q65xdXd7M
+
+## Buzz Space Shooter Game Demo
+
+![grab-landing-page](https://github.com/albuskes/4180final_proj/blob/main/BuzzShooterDemo.gif)
 
 
 ----
