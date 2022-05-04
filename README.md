@@ -17,16 +17,17 @@ Our movement-based control system allows users to control a character in a video
 - 1x mbed (LPC1768)
 - 1x uLCD
 - 1x Adafruit Bluefruit
-- 1x Raspbery Pi (Server)
+- 1x Raspbery Pi 4
 - 2x Computers
 - 1x Webcam
 - 1x Phone with Bluefruit Connect app
 ## Software
 - Python version 3.9 with libraries
   - Pyserial 
-  - ....
+  - Pygame
+  - threading
 - Raspberry Pi with
--   .....
+-   ...
 ## Pinouts and Diagrams
 A block diagram has been provided below. 
 ![plot](./block_diagram_words.png)
