@@ -57,10 +57,13 @@ RXI | p10 |
 # Source Code Guide
 ## code for the mbed
 Listed in the codeMbed folder.
+- The file ____
 ## Code for PC side of things
 Listed in the codePC folder.
+Run the file called "main.py"
 ## Code for Raspberry Pi
 Listed in codePi folder.
+Run the file called "handcount.py"
 -----
 # Set up Instructions
 ## Part 0: Network
